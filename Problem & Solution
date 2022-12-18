@@ -33,3 +33,17 @@ where skill in ('Python', 'Tableau', 'PostgreSQL')
 group by candidate_id
 having count(skill) = 3
 order by candidate_id  ;
+
+If there are duplicate values then - 
+
+select distinct(candidate_id) from candidates
+where candidate_id in
+((select candidate_id from candidates
+where skill in ('Python') 
+intersect
+select candidate_id from candidates
+where skill in ('PostgreSQL')
+intersect
+select candidate_id from candidates
+where skill in ('Tableau')))
+order by candidate_id ;
